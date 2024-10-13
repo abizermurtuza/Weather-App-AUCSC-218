@@ -1,5 +1,5 @@
 AUCSC 218 Weather App
-Abizer, Hoang, Nikolette
+Abizer, Hoang, Nikoletta
 
 Weather App
 
@@ -13,7 +13,10 @@ Requirements:
 API integration.
 JavaScript for fetching and displaying weather data.
 CSS for styling weather cards and icons.
+<<<<<<< HEAD
 
 Hoang - Front End (HTML/CSS)
 Abizer - Back End (API Integration)
 Nikolette - UI/UX
+=======
+>>>>>>> 94011c5e1b065847f5586ebd626af399f4dbacab
