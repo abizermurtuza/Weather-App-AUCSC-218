@@ -13,3 +13,7 @@ Requirements:
 API integration.
 JavaScript for fetching and displaying weather data.
 CSS for styling weather cards and icons.
+
+Hoang - Front End (HTML/CSS)
+Abizer - Back End (API Integration)
+Nikolette - UI/UX
