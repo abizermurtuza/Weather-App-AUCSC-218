@@ -1,5 +1,5 @@
 AUCSC 218 Weather App
-Abizer, Hoang, Nikolette
+Abizer, Hoang, Nikoletta
 
 Weather App
 
