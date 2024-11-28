@@ -1,29 +1,134 @@
-body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  background-color: #f0f0f0;
-}
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(to bottom, #74b9ff, #dfe6e9);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
 
-#weather-app {
-  margin: 50px auto;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
-}
+        .cloud {
+            position: absolute;
+            background: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: moveClouds linear infinite;
+        }
 
-#city-input {
-  padding: 10px;
-  width: 80%;
-  margin-bottom: 10px;
-}
+        .cloud::before,
+        .cloud::after {
+            content: '';
+            position: absolute;
+            background: #ffffff;
+            border-radius: 50%;
+        }
 
-#search-button {
-  padding: 10px 20px;
-  cursor: pointer;
-}
+        .cloud::before {
+            top: -70%;
+            left: -30%;
+            width: 150%;
+            height: 120%;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
 
-#weather-result {
-  margin-top: 20px;
-}
+        .cloud::after {
+            top: 30%;
+            left: -50%;
+            width: 60%;
+            height: 60%;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .cloud:nth-child(1) {
+            width: 240px;
+            height: 130px;
+            top: 50px;
+            left: -300px;
+            animation-duration: 100s;
+        }
+
+        .cloud:nth-child(2) {
+            width: 220px;
+            height: 120px;
+            top: 200px;
+            left: -400px;
+            animation-duration: 120s;
+        }
+
+        .cloud:nth-child(3) {
+            width: 200px;
+            height: 110px;
+            top: 350px;
+            left: -350px;
+            animation-duration: 110s;
+        }
+
+        .cloud:nth-child(4) {
+            width: 260px;
+            height: 140px;
+            top: 500px;
+            left: -500px;
+            animation-duration: 130s;
+        }
+
+        @keyframes moveClouds {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(160vw);
+            }
+        }
+
+        .weather-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .weather-card h1 {
+            font-weight: 700;
+            color: #2d3436;
+        }
+
+        .weather-icon {
+            font-size: 80px;
+            color: #0984e3;
+        }
+
+        .temperature {
+            font-size: 50px;
+            font-weight: 700;
+        }
+
+        .details {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .btn-primary {
+            border-radius: 30px;
+            padding: 10px 30px;
+        }
+
+        .input-group input {
+            border-radius: 30px 0 0 30px;
+        }
+
+        .input-group .btn {
+            border-radius: 0 30px 30px 0;
+        }
+
+        .error {
+            color: #d63031;
+            font-weight: 600;
+        }
