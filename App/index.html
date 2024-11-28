@@ -2,21 +2,83 @@
 <html lang="en">
 
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Weather App</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src="script.js" defer></script>
 </head>
 
 <body>
-    <div id="weather-app">
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+
+    <div class="weather-card">
         <h1>Weather App</h1>
-        <input type="text" id="city-input" placeholder="Enter city name">
-        <button id="search-button">Search</button>
-        <div id="weather-result"></div>
+        <div class="input-group mb-4">
+            <input type="text" id="city-input" class="form-control" placeholder="Enter city name">
+            <div class="input-group-append">
+                <button id="search-button" class="btn btn-primary">Search</button>
+            </div>
+        </div>
+        <div id="weather-result">
+            <i class="fas fa-cloud-sun weather-icon"></i>
+            <div class="temperature" id="temperature">--°C</div>
+            <div class="details" id="details">Please enter a city to see the weather.</div>
+        </div>
+        <div class="error mt-3" id="error-message"></div>
     </div>
+
+    <script>
+        document.getElementById("search-button").addEventListener("click", async () => {
+            const city = document.getElementById("city-input").value.trim();
+            const weatherResult = document.getElementById("weather-result");
+            const errorMessage = document.getElementById("error-message");
+            const apiKey = "f0583504446dd976f54f8cba2ecc652d";
+            const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+            // Reset UI
+            weatherResult.innerHTML = `<i class="fas fa-spinner fa-spin weather-icon"></i>`;
+            errorMessage.textContent = "";
+
+            try {
+                const response = await fetch(apiUrl);
+                if (!response.ok) {
+                    throw new Error("City not found");
+                }
+
+                const data = await response.json();
+                const { main, weather, wind } = data;
+
+                weatherResult.innerHTML = `
+                    <i class="fas fa-${getWeatherIcon(weather[0].main)} weather-icon"></i>
+                    <div class="temperature">${main.temp}°C</div>
+                    <div class="details">
+                        ${weather[0].description}<br>
+                        Humidity: ${main.humidity}% | Wind: ${wind.speed} m/s
+                    </div>
+                `;
+            } catch (error) {
+                errorMessage.textContent = error.message || "Error fetching weather data.";
+                weatherResult.innerHTML = `<i class="fas fa-exclamation-triangle weather-icon"></i>`;
+            }
+        });
+
+        function getWeatherIcon(weather) {
+            switch (weather.toLowerCase()) {
+                case "clear": return "sun";
+                case "clouds": return "cloud";
+                case "rain": return "cloud-rain";
+                case "snow": return "snowflake";
+                case "thunderstorm": return "bolt";
+                default: return "smog";
+            }
+        }
+    </script>
 </body>
 
 </html>
