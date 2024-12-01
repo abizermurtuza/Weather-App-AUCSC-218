@@ -30,55 +30,14 @@
             <div class="temperature" id="temperature">--°C</div>
             <div class="details" id="details">Please enter a city to see the weather.</div>
         </div>
+        <div id="forecast-result" class="mt-4">
+            <h2>5-Day Forecast</h2>
+            <div id="forecast-cards" class="d-flex justify-content-between"></div>
+        </div>
         <div class="error mt-3" id="error-message"></div>
     </div>
 
-    <script>
-        document.getElementById("search-button").addEventListener("click", async () => {
-            const city = document.getElementById("city-input").value.trim();
-            const weatherResult = document.getElementById("weather-result");
-            const errorMessage = document.getElementById("error-message");
-            const apiKey = "f0583504446dd976f54f8cba2ecc652d";
-            const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-
-            // Reset UI
-            weatherResult.innerHTML = `<i class="fas fa-spinner fa-spin weather-icon"></i>`;
-            errorMessage.textContent = "";
-
-            try {
-                const response = await fetch(apiUrl);
-                if (!response.ok) {
-                    throw new Error("City not found");
-                }
-
-                const data = await response.json();
-                const { main, weather, wind } = data;
-
-                weatherResult.innerHTML = `
-                    <i class="fas fa-${getWeatherIcon(weather[0].main)} weather-icon"></i>
-                    <div class="temperature">${main.temp}°C</div>
-                    <div class="details">
-                        ${weather[0].description}<br>
-                        Humidity: ${main.humidity}% | Wind: ${wind.speed} m/s
-                    </div>
-                `;
-            } catch (error) {
-                errorMessage.textContent = error.message || "Error fetching weather data.";
-                weatherResult.innerHTML = `<i class="fas fa-exclamation-triangle weather-icon"></i>`;
-            }
-        });
-
-        function getWeatherIcon(weather) {
-            switch (weather.toLowerCase()) {
-                case "clear": return "sun";
-                case "clouds": return "cloud";
-                case "rain": return "cloud-rain";
-                case "snow": return "snowflake";
-                case "thunderstorm": return "bolt";
-                default: return "smog";
-            }
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 
 </html>
