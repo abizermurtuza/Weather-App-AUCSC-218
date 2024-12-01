@@ -44,30 +44,44 @@ function getForecast(city) {
         const forecastCards = document.getElementById("forecast-cards");
         forecastCards.innerHTML = "";
 
-        // Filter the data to get forecasts at 12:00 PM each day
-        const dailyData = data.list.filter((item) =>
-          item.dt_txt.includes("12:00:00")
-        );
+        // Group forecasts by date
+        const forecastsByDate = {};
+        data.list.forEach((item) => {
+          const date = item.dt_txt.split(" ")[0];
+          if (!forecastsByDate[date]) {
+            forecastsByDate[date] = [];
+          }
+          forecastsByDate[date].push(item);
+        });
 
-        dailyData.forEach((day) => {
-          const date = new Date(day.dt_txt);
-          const options = { weekday: "short", month: "short", day: "numeric" };
-          const dayName = date.toLocaleDateString(undefined, options);
-          const temp = `${Math.round(day.main.temp_min)}°C / ${Math.round(
-            day.main.temp_max
-          )}°C`;
-          const description = day.weather[0].description;
-          const iconCode = day.weather[0].icon;
-          const card = document.createElement("div");
-          card.className = "forecast-card";
-          card.innerHTML = `
+        // For each day, calculate min and max temps
+        Object.keys(forecastsByDate)
+          .slice(0, 5)
+          .forEach((date) => {
+            const forecasts = forecastsByDate[date];
+            const temps = forecasts.map((f) => f.main.temp);
+            const tempMin = Math.min(...temps);
+            const tempMax = Math.max(...temps);
+
+            const dayName = new Date(date).toLocaleDateString(undefined, {
+              weekday: "short",
+              month: "short",
+              day: "numeric",
+            });
+            const temp = `${Math.round(tempMin)}°C / ${Math.round(tempMax)}°C`;
+            const description = forecasts[0].weather[0].description;
+            const iconCode = forecasts[0].weather[0].icon;
+
+            const card = document.createElement("div");
+            card.className = "forecast-card";
+            card.innerHTML = `
             <h3>${dayName}</h3>
             <div class="weather-icon"><img src="https://openweathermap.org/img/wn/${iconCode}@2x.png" alt="Weather icon"></div>
             <div class="temperature">${temp}</div>
             <div class="details">${description}</div>
           `;
-          forecastCards.appendChild(card);
-        });
+            forecastCards.appendChild(card);
+          });
       } else {
         document.getElementById("error-message").textContent =
           "Error fetching forecast data.";
