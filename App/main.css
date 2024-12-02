@@ -263,7 +263,11 @@ body {
   transform: translate(-50%, -50%);
   width: 200px;
   height: 200px;
-  background: radial-gradient(circle, transparent 60%, rgba(255, 223, 0, 0.3) 100%);
+  background: radial-gradient(
+    circle,
+    transparent 60%,
+    rgba(255, 223, 0, 0.3) 100%
+  );
   border-radius: 50%;
   z-index: -2;
 }
@@ -279,7 +283,6 @@ body {
   position: relative;
   z-index: 2;
 }
-
 
 .weather-card h1 {
   font-weight: 700;
@@ -382,7 +385,7 @@ body.sunny {
 }
 
 body.cloudy {
-  background: linear-gradient(to bottom, #74b9ff, #dfe6e);
+  background: linear-gradient(to bottom, #74b9ff, #dfe6e9);
 }
 
 body.rainy {
@@ -393,14 +396,12 @@ body.snowy {
   background: linear-gradient(to bottom, #dfe6e9, #b2bec3);
 }
 
-
 .cloud,
 .snowflake,
 .raindrop,
 .sun {
   display: none;
 }
-
 
 body.cloudy .cloud {
   display: block;
@@ -415,7 +416,7 @@ body.snowy .snowflake {
 }
 
 body.sunny .sun {
-   display: block;
+  display: block;
 }
 
 @keyframes fallSnowflakes {
@@ -532,7 +533,7 @@ body.sunny {
 }
 
 body.cloudy {
-  background: linear-gradient(to bottom, #74b9ff, #dfe6e);
+  background: linear-gradient(to bottom, #74b9ff, #dfe6e9);
 }
 
 body.rainy {
@@ -543,14 +544,12 @@ body.snowy {
   background: linear-gradient(to bottom, #dfe6e9, #b2bec3);
 }
 
-
 .cloud,
 .snowflake,
 .raindrop,
 .sun {
   display: none;
 }
-
 
 body.cloudy .cloud {
   display: block;
@@ -565,7 +564,7 @@ body.snowy .snowflake {
 }
 
 body.sunny .sun {
-   display: block;
+  display: block;
 }
 
 @keyframes fallSnowflakes {

@@ -1,5 +1,9 @@
 const apiKey = "f0583504446dd976f54f8cba2ecc652d";
 
+function capitalizeWords(str) {
+  return str.replace(/\b\w/g, (char) => char.toUpperCase());
+}
+
 document.getElementById("search-button").addEventListener("click", () => {
   const city = document.getElementById("city-input").value.trim();
   if (city) {
@@ -16,8 +20,15 @@ function getWeather(city) {
         document.getElementById("temperature").textContent = `${Math.round(
           data.main.temp
         )}°C`;
-        document.getElementById("details").textContent =
-          data.weather[0].description;
+        document.getElementById("temp-max").textContent = `${Math.round(
+          data.main.temp_max
+        )}°C`;
+        document.getElementById("temp-min").textContent = `${Math.round(
+          data.main.temp_min
+        )}°C`;
+        document.getElementById("details").textContent = capitalizeWords(
+          data.weather[0].description
+        );
         const iconCode = data.weather[0].icon;
         document.querySelector(
           ".weather-icon"

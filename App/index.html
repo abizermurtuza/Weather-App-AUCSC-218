@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Weather App</title>
+    <title>Weather Watch</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
@@ -39,6 +39,10 @@
             <i class="fas fa-cloud-sun weather-icon"></i>
             <div class="temperature" id="temperature">--°C</div>
             <div class="details" id="details">Please enter a city to see the weather.</div>
+            <div class="temp-high-low">
+                <span>High: <span id="temp-max">--°C</span></span>
+                <span>Low: <span id="temp-min">--°C</span></span>
+            </div>
         </div>
         <div id="forecast-result" class="mt-4">
             <h2>5-Day Forecast</h2>
