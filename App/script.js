@@ -111,9 +111,36 @@ function updateWeather(data) {
     document.body.classList.add("cloudy");
   } else if (weatherCondition.includes("rain")) {
     document.body.classList.add("rainy");
+    showRain();
   } else if (weatherCondition.includes("snow")) {
     document.body.classList.add("snowy");
+    showSnow();
   } else {
     document.body.classList.add("sunny");
   }
-}
+
+  function showSnow() {
+    const container = document.querySelector('.weather-container');
+    container.innerHTML = ''; // Clear previous effects
+  
+    for (let i = 0; i < 50; i++) {
+      const snowflake = document.createElement('div');
+      snowflake.classList.add('snow');
+      snowflake.style.left = `${Math.random() * 100}vw`;
+      snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`; // Random duration between 2s and 5s
+      container.appendChild(snowflake);
+    }
+  }
+}  
+  function showRain() {
+    const container = document.querySelector('.weather-container');
+    container.innerHTML = ''; // Clear previous effects
+  
+    for (let i = 0; i < 50; i++) {
+      const raindrop = document.createElement('div');
+      raindrop.classList.add('rain');
+      raindrop.style.left = `${Math.random() * 100}vw`;
+      raindrop.style.animationDuration = `${Math.random() * 1 + 0.5}s`; // Random duration between 0.5s and 1.5s
+      container.appendChild(raindrop);
+    }
+  }
