@@ -79,25 +79,42 @@ function getForecast(city) {
               month: "short",
               day: "numeric",
             });
-            const temp = `${Math.round(tempMin)}°C / ${Math.round(tempMax)}°C`;
-            const description = forecasts[0].weather[0].description;
+            const description = capitalizeWords(
+              forecasts[0].weather[0].description
+            );
             const iconCode = forecasts[0].weather[0].icon;
             const weatherCondition = forecasts[0].weather[0].main.toLowerCase();
+
+            // Create a forecastData object with necessary information
+            const forecastData = {
+              main: {
+                temp: forecasts[0].main.temp,
+                temp_min: tempMin,
+                temp_max: tempMax,
+              },
+              weather: [
+                {
+                  main: forecasts[0].weather[0].main,
+                  description: forecasts[0].weather[0].description,
+                  icon: forecasts[0].weather[0].icon,
+                },
+              ],
+            };
 
             const card = document.createElement("div");
             card.className = "forecast-card";
             card.innerHTML = `
               <h3>${dayName}</h3>
               <div class="weather-icon"><img src="https://openweathermap.org/img/wn/${iconCode}@2x.png" alt="Weather icon"></div>
-              <div class="temperature">${temp}</div>
+              <div class="temperature">${Math.round(tempMin)}°C / ${Math.round(
+              tempMax
+            )}°C</div>
               <div class="details">${description}</div>
             `;
 
+            // Update the main display when the card is clicked
             card.addEventListener("click", () => {
-              const mockData = {
-                weather: [{ main: weatherCondition }],
-              };
-              updateWeather(mockData);
+              updateWeatherDisplay(forecastData);
             });
 
             forecastCards.appendChild(card);
@@ -126,32 +143,69 @@ function updateWeather(data) {
   } else if (weatherCondition.includes("snow")) {
     document.body.classList.add("snowy");
     showSnow();
-  } else {
+  } else if (weatherCondition.includes("clear")) {
     document.body.classList.add("sunny");
   }
 
   function showSnow() {
-    const container = document.querySelector('.weather-container');
-    container.innerHTML = ''; // Clear previous effects
-  
+    const container = document.querySelector(".weather-container");
+    container.innerHTML = ""; // Clear previous effects
+
     for (let i = 0; i < 50; i++) {
-      const snowflake = document.createElement('div');
-      snowflake.classList.add('snow');
+      const snowflake = document.createElement("div");
+      snowflake.classList.add("snow");
       snowflake.style.left = `${Math.random() * 100}vw`;
       snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`; // Random duration between 2s and 5s
       container.appendChild(snowflake);
     }
   }
-}  
-  function showRain() {
-    const container = document.querySelector('.weather-container');
-    container.innerHTML = ''; // Clear previous effects
-  
-    for (let i = 0; i < 50; i++) {
-      const raindrop = document.createElement('div');
-      raindrop.classList.add('rain');
-      raindrop.style.left = `${Math.random() * 100}vw`;
-      raindrop.style.animationDuration = `${Math.random() * 1 + 0.5}s`; // Random duration between 0.5s and 1.5s
-      container.appendChild(raindrop);
-    }
+}
+function showRain() {
+  const container = document.querySelector(".weather-container");
+  container.innerHTML = ""; // Clear previous effects
+
+  for (let i = 0; i < 50; i++) {
+    const raindrop = document.createElement("div");
+    raindrop.classList.add("rain");
+    raindrop.style.left = `${Math.random() * 100}vw`;
+    raindrop.style.animationDuration = `${Math.random() * 1 + 0.5}s`; // Random duration between 0.5s and 1.5s
+    container.appendChild(raindrop);
   }
+}
+
+function showSun() {
+  const container = document.querySelector(".weather-container");
+  container.innerHTML = ""; // Clear previous effects
+
+  const sun = document.createElement("div");
+  sun.classList.add("sun");
+  container.appendChild(sun);
+}
+
+function updateWeatherDisplay(data) {
+  document.getElementById("temperature").textContent = `${Math.round(
+    data.main.temp
+  )}°C`;
+  document.getElementById("temp-max").textContent = `${Math.round(
+    data.main.temp_max
+  )}°C`;
+  document.getElementById("temp-min").textContent = `${Math.round(
+    data.main.temp_min
+  )}°C`;
+  document.getElementById("details").textContent = capitalizeWords(
+    data.weather[0].description
+  );
+
+  const container = document.querySelector(".weather-container");
+  container.innerHTML = "";
+
+  const weatherCondition = data.weather[0].main.toLowerCase();
+
+  if (weatherCondition === "rain") {
+    showRain();
+  } else if (weatherCondition === "snow") {
+    showSnow();
+  } else if (weatherCondition === "clear") {
+    showSun();
+  }
+}

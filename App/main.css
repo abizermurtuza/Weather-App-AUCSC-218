@@ -133,8 +133,6 @@ body {
   z-index: 9999;
 }
 
-
-
 @keyframes moveSun {
   0% {
     transform: translateX(0);
