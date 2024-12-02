@@ -249,7 +249,6 @@ body {
 .weather-icon {
   font-size: 80px;
   color: #0984e3;
-
 }
 
 .temperature {
@@ -282,11 +281,10 @@ body {
 
 #forecast-result {
   margin-top: 20px;
-  justify-content: space-between; /* Ensures equal spacing between items */
-  align-items: stretch; /* Ensures all cards are of equal height */
-  gap: 10px; /* Adds uniform spacing between cards */
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 10px;
 }
-
 
 .forecast-card {
   background: rgba(255, 255, 255, 0.9);
@@ -300,6 +298,7 @@ body {
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
+  cursor: pointer;
 }
 
 .forecast-card h3 {
@@ -322,3 +321,73 @@ body {
   margin-top: 5px;
 }
 
+body.sunny {
+  background: linear-gradient(to bottom, #fbc531, #e1b12c);
+}
+
+body.cloudy {
+  background: linear-gradient(to bottom, #bdc3c7, #2c3e50);
+}
+
+body.rainy {
+  background: linear-gradient(to bottom, #74b9ff, #a29bfe);
+}
+
+body.snowy {
+  background: linear-gradient(to bottom, #dfe6e9, #b2bec3);
+}
+
+/* Hide all animations by default */
+.cloud,
+.snowflake,
+.raindrop {
+  display: none;
+}
+
+/* Show clouds */
+body.cloudy .cloud {
+  display: block;
+}
+
+/* Show raindrops */
+body.rainy .raindrop {
+  display: block;
+}
+
+/* Show snowflakes */
+body.snowy .snowflake {
+  display: block;
+}
+
+/* Ensure animations have necessary styles */
+.cloud {
+  /* Your existing cloud styles */
+}
+
+.snowflake {
+  /* Your existing snowflake styles */
+}
+
+.raindrop {
+  /* Your existing raindrop styles */
+}
+
+/* Example animation */
+@keyframes fallSnowflakes {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+.snowflake {
+  animation: fallSnowflakes 10s linear infinite;
+}
+
+/* Existing styles */
+.color-class {
+  color: #d63031;
+  font-weight: 600;
+}

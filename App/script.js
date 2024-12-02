@@ -24,6 +24,7 @@ function getWeather(city) {
         ).innerHTML = `<img src="https://openweathermap.org/img/wn/${iconCode}@2x.png" alt="Weather icon">`;
         document.getElementById("error-message").textContent = "";
         getForecast(city);
+        updateWeather(data);
       } else {
         document.getElementById("error-message").textContent =
           "City not found.";
@@ -44,7 +45,6 @@ function getForecast(city) {
         const forecastCards = document.getElementById("forecast-cards");
         forecastCards.innerHTML = "";
 
-        // Group forecasts by date
         const forecastsByDate = {};
         data.list.forEach((item) => {
           const date = item.dt_txt.split(" ")[0];
@@ -71,15 +71,24 @@ function getForecast(city) {
             const temp = `${Math.round(tempMin)}°C / ${Math.round(tempMax)}°C`;
             const description = forecasts[0].weather[0].description;
             const iconCode = forecasts[0].weather[0].icon;
+            const weatherCondition = forecasts[0].weather[0].main.toLowerCase();
 
             const card = document.createElement("div");
             card.className = "forecast-card";
             card.innerHTML = `
-            <h3>${dayName}</h3>
-            <div class="weather-icon"><img src="https://openweathermap.org/img/wn/${iconCode}@2x.png" alt="Weather icon"></div>
-            <div class="temperature">${temp}</div>
-            <div class="details">${description}</div>
-          `;
+              <h3>${dayName}</h3>
+              <div class="weather-icon"><img src="https://openweathermap.org/img/wn/${iconCode}@2x.png" alt="Weather icon"></div>
+              <div class="temperature">${temp}</div>
+              <div class="details">${description}</div>
+            `;
+
+            card.addEventListener("click", () => {
+              const mockData = {
+                weather: [{ main: weatherCondition }],
+              };
+              updateWeather(mockData);
+            });
+
             forecastCards.appendChild(card);
           });
       } else {
@@ -91,4 +100,20 @@ function getForecast(city) {
       document.getElementById("error-message").textContent =
         "Error fetching forecast data.";
     });
+}
+
+function updateWeather(data) {
+  const weatherCondition = data.weather[0].main.toLowerCase();
+
+  document.body.classList.remove("sunny", "cloudy", "rainy", "snowy");
+
+  if (weatherCondition.includes("cloud")) {
+    document.body.classList.add("cloudy");
+  } else if (weatherCondition.includes("rain")) {
+    document.body.classList.add("rainy");
+  } else if (weatherCondition.includes("snow")) {
+    document.body.classList.add("snowy");
+  } else {
+    document.body.classList.add("sunny");
+  }
 }
