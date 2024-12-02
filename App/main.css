@@ -8,6 +8,7 @@ body {
   align-items: center;
   overflow: hidden;
   position: relative;
+  z-index: 0;
 }
 
 .cloud {
@@ -229,6 +230,44 @@ body {
   }
 }
 
+@keyframes moveSun {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(80vw) translateY(-10vh);
+  }
+  100% {
+    transform: translateX(160vw);
+  }
+}
+
+.sun {
+  position: absolute;
+  top: 10%;
+  left: -20%;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle at center, #fbc531, #e1b12c);
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(255, 223, 0, 0.6), 0 0 40px rgba(255, 223, 0, 0.4);
+  z-index: -1;
+  animation: moveSun 45s linear infinite;
+}
+
+.sun::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, transparent 60%, rgba(255, 223, 0, 0.3) 100%);
+  border-radius: 50%;
+  z-index: -2;
+}
+
 .weather-card {
   background: rgba(255, 255, 255, 0.9);
   border-radius: 20px;
@@ -238,8 +277,9 @@ body {
   width: 100%;
   text-align: center;
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
+
 
 .weather-card h1 {
   font-weight: 700;
@@ -311,6 +351,22 @@ body {
   color: #0984e3;
 }
 
+.forecast-card.sunny .weather-icon {
+  color: #fbc531;
+}
+
+.forecast-card.rainy .weather-icon {
+  color: #0984e3;
+}
+
+.forecast-card.cloudy .weather-icon {
+  color: #7f8c8d;
+}
+
+.forecast-card.snowy .weather-icon {
+  color: #dfe6e9;
+}
+
 .forecast-card .temperature {
   font-size: 24px;
   font-weight: 700;
@@ -322,57 +378,46 @@ body {
 }
 
 body.sunny {
-  background: linear-gradient(to bottom, #fbc531, #e1b12c);
+  background: linear-gradient(to bottom, #74b9ff, #dfe6e9);
 }
 
 body.cloudy {
-  background: linear-gradient(to bottom, #bdc3c7, #2c3e50);
+  background: linear-gradient(to bottom, #74b9ff, #dfe6e);
 }
 
 body.rainy {
-  background: linear-gradient(to bottom, #74b9ff, #a29bfe);
+  background: linear-gradient(to bottom, #bdc3c7, #2c3e50);
 }
 
 body.snowy {
   background: linear-gradient(to bottom, #dfe6e9, #b2bec3);
 }
 
-/* Hide all animations by default */
+
 .cloud,
 .snowflake,
-.raindrop {
+.raindrop,
+.sun {
   display: none;
 }
 
-/* Show clouds */
+
 body.cloudy .cloud {
   display: block;
 }
 
-/* Show raindrops */
 body.rainy .raindrop {
   display: block;
 }
 
-/* Show snowflakes */
 body.snowy .snowflake {
   display: block;
 }
 
-/* Ensure animations have necessary styles */
-.cloud {
-  /* Your existing cloud styles */
+body.sunny .sun {
+   display: block;
 }
 
-.snowflake {
-  /* Your existing snowflake styles */
-}
-
-.raindrop {
-  /* Your existing raindrop styles */
-}
-
-/* Example animation */
 @keyframes fallSnowflakes {
   0% {
     transform: translateY(0);
@@ -386,7 +431,156 @@ body.snowy .snowflake {
   animation: fallSnowflakes 10s linear infinite;
 }
 
-/* Existing styles */
+.color-class {
+  color: #d63031;
+  font-weight: 600;
+}
+
+.weather-icon {
+  font-size: 80px;
+  color: #0984e3;
+}
+
+.temperature {
+  font-size: 50px;
+  font-weight: 700;
+}
+
+.details {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.btn-primary {
+  border-radius: 30px;
+  padding: 10px 30px;
+}
+
+.input-group input {
+  border-radius: 30px 0 0 30px;
+}
+
+.input-group .btn {
+  border-radius: 0 30px 30px 0;
+}
+
+.error {
+  color: #d63031;
+  font-weight: 600;
+}
+
+#forecast-result {
+  margin-top: 20px;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 10px;
+}
+
+.forecast-card {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  text-align: center;
+  width: 18%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.forecast-card h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.forecast-card .weather-icon {
+  font-size: 40px;
+  color: #0984e3;
+}
+
+.forecast-card.sunny .weather-icon {
+  color: #fbc531;
+}
+
+.forecast-card.rainy .weather-icon {
+  color: #0984e3;
+}
+
+.forecast-card.cloudy .weather-icon {
+  color: #7f8c8d;
+}
+
+.forecast-card.snowy .weather-icon {
+  color: #dfe6e9;
+}
+
+.forecast-card .temperature {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.forecast-card .details {
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+body.sunny {
+  background: linear-gradient(to bottom, #74b9ff, #dfe6e9);
+}
+
+body.cloudy {
+  background: linear-gradient(to bottom, #74b9ff, #dfe6e);
+}
+
+body.rainy {
+  background: linear-gradient(to bottom, #bdc3c7, #2c3e50);
+}
+
+body.snowy {
+  background: linear-gradient(to bottom, #dfe6e9, #b2bec3);
+}
+
+
+.cloud,
+.snowflake,
+.raindrop,
+.sun {
+  display: none;
+}
+
+
+body.cloudy .cloud {
+  display: block;
+}
+
+body.rainy .raindrop {
+  display: block;
+}
+
+body.snowy .snowflake {
+  display: block;
+}
+
+body.sunny .sun {
+   display: block;
+}
+
+@keyframes fallSnowflakes {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+.snowflake {
+  animation: fallSnowflakes 10s linear infinite;
+}
+
 .color-class {
   color: #d63031;
   font-weight: 600;
