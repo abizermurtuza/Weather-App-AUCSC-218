@@ -84,151 +84,56 @@ body {
   }
 }
 
-.snowflake {
+@keyframes fallSnows {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+@keyframes fallrains {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+.snow {
   position: absolute;
-  background: #ffffff;
+  background: white;
   border-radius: 50%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  animation: fallSnowflakes linear infinite;
-}
-
-.snowflake::before,
-.snowflake::after {
-  content: "";
-  position: absolute;
-  background: #ffffff;
-  border-radius: 50%;
-}
-
-.snowflake::before {
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.snowflake::after {
-  top: 25%;
-  left: -25%;
-  width: 50%;
-  height: 50%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.snowflake:nth-child(1) {
   width: 10px;
   height: 10px;
-  top: 0;
-  left: 10%;
-  animation-duration: 10s;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  animation: fallSnows linear infinite;
 }
 
-.snowflake:nth-child(2) {
-  width: 8px;
-  height: 8px;
-  top: 0;
-  left: 30%;
-  animation-duration: 12s;
-}
-
-.snowflake:nth-child(3) {
-  width: 12px;
-  height: 12px;
-  top: 0;
-  left: 50%;
-  animation-duration: 14s;
-}
-
-.snowflake:nth-child(4) {
-  width: 6px;
-  height: 6px;
-  top: 0;
-  left: 70%;
-  animation-duration: 16s;
-}
-
-@keyframes fallSnowflakes {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(100vh);
-  }
-}
-
-.raindrop {
+.rain {
   position: absolute;
   background: #00aaff;
   border-radius: 50%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  animation: fallRaindrops linear infinite;
-}
-
-.raindrop::before,
-.raindrop::after {
-  content: "";
-  position: absolute;
-  background: #00aaff;
-  border-radius: 50%;
-}
-
-.raindrop::before {
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.raindrop::after {
-  top: 25%;
-  left: -25%;
-  width: 50%;
-  height: 50%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.raindrop:nth-child(1) {
   width: 5px;
-  height: 10px;
-  top: 0;
-  left: 15%;
-  animation-duration: 5s;
+  height: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  animation: fallrains linear infinite;
 }
 
-.raindrop:nth-child(2) {
-  width: 4px;
-  height: 8px;
+.weather-container {
+  position: fixed;
   top: 0;
-  left: 35%;
-  animation-duration: 6s;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 9999;
 }
 
-.raindrop:nth-child(3) {
-  width: 6px;
-  height: 12px;
-  top: 0;
-  left: 55%;
-  animation-duration: 7s;
-}
 
-.raindrop:nth-child(4) {
-  width: 3px;
-  height: 6px;
-  top: 0;
-  left: 75%;
-  animation-duration: 8s;
-}
-
-@keyframes fallRaindrops {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(100vh);
-  }
-}
 
 @keyframes moveSun {
   0% {
